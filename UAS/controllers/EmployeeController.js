@@ -125,23 +125,28 @@ class EmployeeController {
       res.status(404).json(data);
     }
   }
-  async searchByName(req, res) {
-    // Get the name from the query parameter
-    const name = req.query.name;
+  async search(req, res) {
+    const { name } = req.params;
 
-    // Find the employees with the specified name
-    const employees = await Employee.searchByName({
-      where: {
-        name: {
-          ilike: `%${name}%`,
-        },
-      },
-    });
-    
+    // melakukan search nama dengan function search
+    const employee = await Employee.search(name);
 
-    // Send the response
-    res.status(200).json({ employees });
-  }
+    // melakukan validasi jika data ada atau tidak ada
+    if (employee) {
+        const data = {
+            message: "Get Searched Resource",
+            data: employee,
+        };
+
+        res.status(200).json(data);
+    } else {
+        const data = {
+            message: "Resource not found",
+        };
+
+        res.status(404).json(data);
+    }
+}
 
   async show(req, res) {
     /**

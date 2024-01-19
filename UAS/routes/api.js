@@ -19,7 +19,7 @@ router.post("/Employees", EmployeeController.store);
 router.put("/Employees/:id", EmployeeController.update);
 router.delete("/Employees/:id", EmployeeController.destroy);
 router.get("/Employees/:id", EmployeeController.show);
-router.get('/employees/search/:name', EmployeeController.searchByName);
+router.get('/employees/search/:name', EmployeeController.search);
 router.get('/employees/status/:status', EmployeeController.getByStatus);
 //search by name
 

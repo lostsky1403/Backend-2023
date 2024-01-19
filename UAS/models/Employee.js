@@ -64,24 +64,16 @@ class Employee {
     const employee = await this.find(id);
     return employee;
   }
-  static async searchByName(name) {
-    // query select
+  static search(name) {
     return new Promise((resolve, reject) => {
-      // query sql
-      const sql = "SELECT * FROM employees WHERE name LIKE ?";
-      db.query(sql, `%${name}%`, (err, results) => {
-        if (err) {
-          reject(err);
-        } else {
-          // create a message with the names of the employees
-          const names = results.map(employee => employee.name);
-          const message = `Data found: ${names.join(', ')}`;
-  
-          resolve({ results, message });
-        }
-      });
+        // query untuk select data berdasarkan name
+        // Like berguna untuk mencari data yang sesuai dengan parameter yang diberikan
+        const sql = `SELECT * FROM employees WHERE name LIKE '%${name}%' `;
+        db.query(sql, (err, results) => {
+            resolve(results);
+        });
     });
-  }
+}
 
   static getByStatus(status) {
     return new Promise((resolve, reject) => {
